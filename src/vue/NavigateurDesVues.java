@@ -74,11 +74,6 @@ public class NavigateurDesVues extends Application{
 		stade.show();
 	}
 
-	@Override
-	public void start(Stage arg0) throws Exception {
-		stade.setScene(this.vueAjouterStudioDev);
-		stade.show();
-	}
 }
 
 
