@@ -44,7 +44,7 @@ public class VueStudioDev extends Scene {
 		this.valeurNom.setText(StudioDev.getNom());
 		this.valeurSiegeSocial.setText(StudioDev.getSiege_social());
 		this.valeurAnneeCreation.setText(StudioDev.getAnnee_creation());
-		this.valeurEffectif.setText(StudioDev.getEffectif());	
+		this.valeurEffectif.setText(String.valueOf(StudioDev.getEffectif()));	
 	}
 
 }

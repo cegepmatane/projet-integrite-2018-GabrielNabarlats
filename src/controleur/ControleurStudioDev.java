@@ -33,12 +33,12 @@ public class ControleurStudioDev {
 		this.vueStudioDev = this.navigateur.getVueStudioDev();
 		
 		/// TEST ///
-		StudioDev StudioDev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
-		this.vueStudioDev.afficherStudioDev(StudioDev); // Appel de ma fonction avant de la programmer (pour tester à mesure)
+		/*StudioDev StudioDev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
+		this.vueStudioDev.afficherStudioDev(StudioDev); // Appel de ma fonction avant de la programmer (pour tester à mesure)*/
 		
-		this.navigateur.naviguerVersVueStudioDev();
+		//this.navigateur.naviguerVersVueStudioDev();
 		this.navigateur.naviguerVersVueListeStudioDev();
-		this.navigateur.naviguerVersVueAjouterStudioDev();
+		//this.navigateur.naviguerVersVueAjouterStudioDev();
 	}
 
 }
