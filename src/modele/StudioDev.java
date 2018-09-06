@@ -5,7 +5,7 @@ public class StudioDev {
 	public String nom;
 	public String siege_social;
 	public String annee_creation;
-	public int effectif;
+	public String effectif;
 	
 	public StudioDev(String nom) {
 		super();
@@ -25,7 +25,7 @@ public class StudioDev {
 		this.annee_creation = annee_creation;
 	}
 	
-	public StudioDev(String nom, String siege_social, String annee_creation, int effectif) {
+	public StudioDev(String nom, String siege_social, String annee_creation, String effectif) {
 		super();
 		this.nom = nom;
 		this.siege_social = siege_social;
@@ -51,10 +51,10 @@ public class StudioDev {
 	public void setAnnee_creation(String annee_creation) {
 		this.annee_creation = annee_creation;
 	}
-	public int getEffectif() {
+	public String getEffectif() {
 		return effectif;
 	}
-	public void setEffectif(int effectif) {
+	public void setEffectif(String effectif) {
 		this.effectif = effectif;
 	}
 	

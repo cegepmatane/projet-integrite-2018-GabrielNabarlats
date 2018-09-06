@@ -9,20 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.StudioDev;
+import modele.StudioDev;
 
 public class StudioDevDAO {
 	
 	public List<StudioDev> simulerListeStudioDev(){
 		List listeStudioDevTest = new ArrayList<StudioDev>();
-		listeStudioDevTest.add(new StudioDev("Naughty Dog", "Santa Monica", "1984", 200));
-		listeStudioDevTest.add(new StudioDev("CD Projekt Red", "Varsovie", "1994", 600));
-		listeStudioDevTest.add(new StudioDev("Vicarious Visions", "Menands", "1990", 200));
+		listeStudioDevTest.add(new StudioDev("Naughty Dog", "Santa Monica", "1984", "200"));
+		listeStudioDevTest.add(new StudioDev("CD Projekt Red", "Varsovie", "1994", "600"));
+		listeStudioDevTest.add(new StudioDev("Vicarious Visions", "Menands", "1990", "200"));
 		return listeStudioDevTest;
 	}
 	public List<StudioDev>listeStudioDev(){
 		
 		String BASEDEDONNEES_DRIVER = "org.postgresql.Driver";
-		String BASEDEDONNEES_URL = "jdbc:postgresql://localhost.5432/bergerie";
+		String BASEDEDONNEES_URL = "jdbc:postgresql://localhost.5432/studiodev";
 		String BASEDEDONNEES_USAGER = "postgres";
 		String BASEDEDONNEES_MOTDEPASSE = "1134";
 		
@@ -32,6 +33,7 @@ public class StudioDevDAO {
 			e.printStackTrace();
 		}
 		
+		List<StudioDev> listeStudioDev =  new ArrayList<StudioDev>();
 		try {
 			Connection connection = DriverManager.getConnection(BASEDEDONNEES_URL, BASEDEDONNEES_USAGER, BASEDEDONNEES_MOTDEPASSE);
 			
@@ -42,7 +44,7 @@ public class StudioDevDAO {
 			String nom = curseurListeStudioDev.getString("nom");
 			String siegeSocial = curseurListeStudioDev.getString("siegeSocial");
 			String anneeCreation = curseurListeStudioDev.getString("anneeCreation");
-			int effectif = curseurListeStudioDev.getInt("effectif");
+			String effectif = curseurListeStudioDev.getString("effectif");
 			
 			System.out.println("Studio " + nom + " basé à " + siegeSocial + ", fondé en " + anneeCreation + " et ayant " + effectif + " employés.");
 			StudioDev studio = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
