@@ -40,7 +40,7 @@ public class ControleurStudioDev {
 		this.vueListeStudioDev.afficherListeStudioDev(listeStudioDevTest); // Appel de ma fonction avant de la programmer (pour tester à mesure)
 		
 		this.navigateur.naviguerVersVueListeStudioDev();
-		this.navigateur.naviguerVersVueAjouterStudioDev();
+		//this.navigateur.naviguerVersVueAjouterStudioDev();
 	}
 	
 		// SINGLETON DEBUT
