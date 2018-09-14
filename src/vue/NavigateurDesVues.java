@@ -1,38 +1,49 @@
 package vue;
-import java.util.ArrayList;
-import java.util.List;
 
 import controleur.ControleurStudioDev;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import modele.StudioDev;
+
 
 public class NavigateurDesVues extends Application{
 	
-	private VueAjouterStudioDev vueAjouterStudioDev;
-	private VueListeStudioDev vueListeStudioDev;
-	private VueStudioDev vueStudioDev;
+	private Stage stade;
+	
+	private VueAjouterStudioDev vueAjouterStudioDev = null;
+	private VueListeStudioDev vueListeStudioDev = null;
+	private VueStudioDev vueStudioDev = null;
+	public VueEditerStudioDev vueEditerStudioDev = null;
+	
+	private ControleurStudioDev controleur = null;
 	
 	public NavigateurDesVues() 
 	{
 		this.vueAjouterStudioDev = new VueAjouterStudioDev();
 		this.vueListeStudioDev = new VueListeStudioDev();
 		this.vueStudioDev = new VueStudioDev();
+		this.vueEditerStudioDev = new VueEditerStudioDev();
 			
 	}
 	
-	private Stage stade = null;
 	
 	@Override
 	public void start(Stage stade) throws Exception {
 		
 		this.stade = stade;
-		stade.setScene(this.vueStudioDev);
+		
+		stade.setScene(null);
 		stade.show();
 		
-		//ControleurStudioDev controleur = new ControleurStudioDev(this);
-		ControleurStudioDev controleur = ControleurStudioDev.getInstance();
-		controleur.activerVues(this);
+		this.controleur = ControleurStudioDev.getInstance();
+		this.controleur.activerVues(this);
+		this.vueAjouterStudioDev.setControleur(controleur);
+		this.vueListeStudioDev.setControleur(controleur);
+		this.vueStudioDev.setControleur(controleur);
+		this.vueEditerStudioDev.setControleur(controleur);
+		
+
+		/*ControleurStudioDev controleur = ControleurStudioDev.getInstance();
+		controleur.activerVues(this);*/
 	}
 
 	public VueAjouterStudioDev getVueAjouterStudioDev() {
@@ -72,6 +83,15 @@ public class NavigateurDesVues extends Application{
 	public void naviguerVersVueAjouterStudioDev() {
 		stade.setScene(this.vueAjouterStudioDev);
 		stade.show();
+	}
+	
+	public void naviguerVersVueEditerStudioDev() {
+		stade.setScene(this.vueEditerStudioDev);
+		stade.show();
+	}
+	
+	public VueEditerStudioDev getVueEditerStudioDev() {
+		return vueEditerStudioDev;
 	}
 
 }

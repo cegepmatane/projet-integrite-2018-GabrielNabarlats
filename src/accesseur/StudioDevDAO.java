@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.StudioDev;
-import modele.StudioDev;
 
 public class StudioDevDAO {
 	
@@ -20,12 +19,15 @@ public class StudioDevDAO {
 		listeStudioDevTest.add(new StudioDev("Vicarious Visions", "Menands", "1990", "200"));
 		return listeStudioDevTest;
 	}
-	public List<StudioDev>listeStudioDev(){
-		
-		String BASEDEDONNEES_DRIVER = "org.postgresql.Driver";
-		String BASEDEDONNEES_URL = "jdbc:postgresql://localhost.5432/studiodev";
-		String BASEDEDONNEES_USAGER = "postgres";
-		String BASEDEDONNEES_MOTDEPASSE = "1134";
+	
+	private static String BASEDEDONNEES_DRIVER = "org.postgresql.Driver";
+	private static String BASEDEDONNEES_URL = "jdbc:postgresql://localhost:5432/studiodev";
+	private static String BASEDEDONNEES_USAGER = "postgres";
+	private static String BASEDEDONNEES_MOTDEPASSE = "1134";
+	
+	private Connection connection = null;
+	
+	public StudioDevDAO() {
 		
 		try {
 			Class.forName(BASEDEDONNEES_DRIVER);
@@ -33,28 +35,91 @@ public class StudioDevDAO {
 			e.printStackTrace();
 		}
 		
-		List<StudioDev> listeStudioDev =  new ArrayList<StudioDev>();
 		try {
-			Connection connection = DriverManager.getConnection(BASEDEDONNEES_URL, BASEDEDONNEES_USAGER, BASEDEDONNEES_MOTDEPASSE);
+			connection = DriverManager.getConnection(BASEDEDONNEES_URL, BASEDEDONNEES_USAGER, BASEDEDONNEES_MOTDEPASSE);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+	}
+		
+	public List<StudioDev> listerStudioDev(){
+		
+		List<StudioDev> listeStudioDev =  new ArrayList<StudioDev>();
+		Statement requeteListeStudioDev;
+		try {
+			requeteListeStudioDev = connection.createStatement();
+			ResultSet curseurListeStudioDev = requeteListeStudioDev.executeQuery("SELECT * FROM studiodev");
 			
-			Statement requeteListeStudioDev = connection.createStatement();
-			ResultSet curseurListeStudioDev = requeteListeStudioDev.executeQuery("SELECT * FROM studio");
-			
-			curseurListeStudioDev.next();
-			String nom = curseurListeStudioDev.getString("nom");
-			String siegeSocial = curseurListeStudioDev.getString("siegeSocial");
-			String anneeCreation = curseurListeStudioDev.getString("anneeCreation");
-			String effectif = curseurListeStudioDev.getString("effectif");
-			
-			System.out.println("Studio " + nom + " basé à " + siegeSocial + ", fondé en " + anneeCreation + " et ayant " + effectif + " employés.");
-			StudioDev studio = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
-			listeStudioDev.add(studio);
+			while(curseurListeStudioDev.next()) {
+				int id = curseurListeStudioDev.getInt("id");
+				String nom = curseurListeStudioDev.getString("nom");
+				String siegeSocial = curseurListeStudioDev.getString("siegeSocial");
+				String anneeCreation = curseurListeStudioDev.getString("anneeCreation");
+				String effectif = curseurListeStudioDev.getString("effectif");
+				
+				System.out.println("Studio " + nom + " basé à " + siegeSocial + ", fondé en " + anneeCreation + " et ayant " + effectif + " employés.");
+				StudioDev studio = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
+				studio.setID(id);
+				listeStudioDev.add(studio);
+			}
 		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return this.simulerListeStudioDev();
+		//return this.simulerListeStudioDev();
+		return listeStudioDev;
+	}
+	
+	public void ajouterStudioDev(StudioDev studioDev) {
+		System.out.println("StudioDevDAO.ajouterStudioDev()");
+		
+		try {
+			Statement requeteAjouterStudioDev = connection.createStatement();
+			String sqlAjouterStudioDev = "INSERT INTO studiodev(id, nom, siegeSocial, anneeCreation, effectif) VALUES(DEFAULT, '"+studioDev.getNom()+"','"+studioDev.getSiege_social()+"','"+studioDev.getAnnee_creation()+"','"+studioDev.getEffectif()+"')";
+			System.out.println("SQL : " + sqlAjouterStudioDev);
+			requeteAjouterStudioDev.execute(sqlAjouterStudioDev);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public StudioDev rapporterStudioDev(int idStudioDev) {
+		Statement requeteStudioDev;
+		try {
+			requeteStudioDev = connection.createStatement();
+			
+			String SQL_RAPPORTER_STUDIODEV = "SELECT * FROM studiodev WHERE id =" + idStudioDev;
+			System.out.println(SQL_RAPPORTER_STUDIODEV);
+			ResultSet curseurStudioDev = requeteStudioDev.executeQuery(SQL_RAPPORTER_STUDIODEV);
+			curseurStudioDev.next();
+			int id = curseurStudioDev.getInt("id");
+			String nom = curseurStudioDev.getString("nom");
+			String siegeSocial = curseurStudioDev.getString("siegeSocial");
+			String anneeCreation = curseurStudioDev.getString("anneeCreation");
+			String effectif = curseurStudioDev.getString("effectif");
+			System.out.println("Le studio de développement " + nom + " est basé à " + siegeSocial + " depuis " + anneeCreation + " et compte " + effectif + " employés.");
+			StudioDev studioDev = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
+			studioDev.setID(id);
+			return studioDev;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void modifierStudioDev(StudioDev studioDev) {
+		System.out.println("StudioDevDAO.modifierStudioDev()");
+		try {
+			Statement requeteModifierStudioDev = connection.createStatement();
+			
+			String SQL_MODIFIER_STUDIODEV = "UPDATE studiodev SET nom = '"+studioDev.getNom()+"', siegesocial = '"+studioDev.getSiege_social()+"', anneecreation = '"+studioDev.getAnnee_creation()+"', effectif = '"+studioDev.getEffectif()+"' WHERE id = " + studioDev.getID();
+			System.out.println("SQL : " + SQL_MODIFIER_STUDIODEV);
+			requeteModifierStudioDev.execute(SQL_MODIFIER_STUDIODEV);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -2,6 +2,7 @@ package modele;
 
 public class StudioDev {
 
+	protected int id;
 	public String nom;
 	public String siege_social;
 	public String annee_creation;
@@ -58,7 +59,12 @@ public class StudioDev {
 		this.effectif = effectif;
 	}
 	
+	public int getID() {
+		return id;
+	}
 	
-	
+	public void setID(int id) {
+		this.id = id;
+	}
 	
 }

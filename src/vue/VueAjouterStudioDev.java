@@ -34,7 +34,7 @@ public class VueAjouterStudioDev extends Scene {
 			@Override
 			public void handle(ActionEvent arg0) {
 				
-				controleur.notifierEnregistrerStudioDev();
+				controleur.notifierEnregistrerNouveauStudioDev();
 				
 			}});
 
@@ -44,21 +44,21 @@ public class VueAjouterStudioDev extends Scene {
 		grilleStudioDev.add(valeurNom, 1, 0);
 		
 		valeurSiegeSocial = new TextField("");
-		grilleStudioDev.add(new Label("SiegeSocial : "), 0, 1);
+		grilleStudioDev.add(new Label("siegeSocial : "), 0, 1);
 		grilleStudioDev.add(valeurSiegeSocial, 1, 1);
 
 		valeurAnneeCreation = new TextField("");
-		grilleStudioDev.add(new Label("AnneeCreation : "), 0, 2);
+		grilleStudioDev.add(new Label("anneeCreation : "), 0, 2);
 		grilleStudioDev.add(valeurAnneeCreation, 1, 2);		
 
 		valeurEffectif = new TextField("");
-		grilleStudioDev.add(new Label("Effectif : "), 0, 3);
+		grilleStudioDev.add(new Label("eEffectif : "), 0, 3);
 		grilleStudioDev.add(valeurEffectif, 1, 3);				
 			
 		
 		panneau.getChildren().add(new Label("Ajouter un studio de développement")); // Todo : créer un sous-type de Label ou Text pour les titres
 		panneau.getChildren().add(grilleStudioDev);
-		panneau.getChildren().add(new Button("Enregistrer"));
+		panneau.getChildren().add(actionEnregistrerStudioDev);
 	}
 	
 	public StudioDev demanderStudioDev()

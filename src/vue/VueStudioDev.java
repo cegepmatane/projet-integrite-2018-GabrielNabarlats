@@ -1,4 +1,5 @@
 package vue;
+import controleur.ControleurStudioDev;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ public class VueStudioDev extends Scene {
 	protected Label valeurSiegeSocial;
 	protected Label valeurAnneeCreation;
 	protected Label valeurEffectif;
+	private ControleurStudioDev controleur = null;
 	
 	public VueStudioDev() {
 		super(new Pane(),400,400);
@@ -45,6 +47,10 @@ public class VueStudioDev extends Scene {
 		this.valeurSiegeSocial.setText(StudioDev.getSiege_social());
 		this.valeurAnneeCreation.setText(StudioDev.getAnnee_creation());
 		this.valeurEffectif.setText(String.valueOf(StudioDev.getEffectif()));	
+	}
+	
+	public void setControleur(ControleurStudioDev controleur) {
+		this.controleur = controleur;
 	}
 
 }
