@@ -41,9 +41,6 @@ public class NavigateurDesVues extends Application{
 		this.vueStudioDev.setControleur(controleur);
 		this.vueEditerStudioDev.setControleur(controleur);
 		
-
-		/*ControleurStudioDev controleur = ControleurStudioDev.getInstance();
-		controleur.activerVues(this);*/
 	}
 
 	public VueAjouterStudioDev getVueAjouterStudioDev() {

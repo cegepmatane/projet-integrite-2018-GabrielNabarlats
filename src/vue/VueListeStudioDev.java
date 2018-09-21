@@ -33,9 +33,9 @@ public class VueListeStudioDev extends Scene {
 		
 		int numero = 0;
 		this.grilleStudioDevs.add(new Label("Nom"), 0, numero);
-		this.grilleStudioDevs.add(new Label("siegeSocial"), 1, numero);
-		this.grilleStudioDevs.add(new Label("anneeCreation"), 2,  numero);
-		this.grilleStudioDevs.add(new Label("effectif"), 3,  numero);
+		this.grilleStudioDevs.add(new Label("Siege Social"), 1, numero);
+		this.grilleStudioDevs.add(new Label("Annee Creation"), 2,  numero);
+		this.grilleStudioDevs.add(new Label("Effectif"), 3,  numero);
 		for(StudioDev studioDev : listeStudioDevs)
 		{
 			Button actionEditerStudioDev = new Button("Editer");

@@ -35,8 +35,8 @@ public class ControleurStudioDev {
 		this.vueEditerStudioDev = this.navigateur.getVueEditerStudioDev();
 
 		/// TEST ///
-		StudioDev StudioDev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
-		this.vueStudioDev.afficherStudioDev(StudioDev); // Appel de ma fonction avant de la programmer (pour tester à mesure)
+		StudioDev studiodev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
+		this.vueStudioDev.afficherStudioDev(studiodev); // Appel de ma fonction avant de la programmer (pour tester à mesure)
 		
 		
 		/// TEST Navigation ///

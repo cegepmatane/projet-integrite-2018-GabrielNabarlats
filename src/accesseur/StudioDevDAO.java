@@ -54,13 +54,12 @@ public class StudioDevDAO {
 			while(curseurListeStudioDev.next()) {
 				int id = curseurListeStudioDev.getInt("id");
 				String nom = curseurListeStudioDev.getString("nom");
-				String siegeSocial = curseurListeStudioDev.getString("siegeSocial");
-				String anneeCreation = curseurListeStudioDev.getString("anneeCreation");
+				String siegeSocial = curseurListeStudioDev.getString("siegesocial");
+				String anneeCreation = curseurListeStudioDev.getString("anneecreation");
 				String effectif = curseurListeStudioDev.getString("effectif");
 				
 				System.out.println("Studio " + nom + " basé à " + siegeSocial + ", fondé en " + anneeCreation + " et ayant " + effectif + " employés.");
 				StudioDev studio = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
-				studio.setID(id);
 				listeStudioDev.add(studio);
 			}
 		
@@ -73,40 +72,20 @@ public class StudioDevDAO {
 	}
 	
 	public void ajouterStudioDev(StudioDev studioDev) {
-		System.out.println("StudioDevDAO.ajouterStudioDev()");
 		
 		try {
 			Statement requeteAjouterStudioDev = connection.createStatement();
-			String sqlAjouterStudioDev = "INSERT INTO studiodev(id, nom, siegeSocial, anneeCreation, effectif) VALUES(DEFAULT, '"+studioDev.getNom()+"','"+studioDev.getSiege_social()+"','"+studioDev.getAnnee_creation()+"','"+studioDev.getEffectif()+"')";
+			
+			/*
+			 * ALTER TABLE my_table DROP COLUMN id; ALTER TABLE my_table ADD COLUMN id SERIAL PRIMARY KEY;
+			 */
+			
+			String sqlAjouterStudioDev = "INSERT INTO studiodev(nom, siegesocial, anneecreation, effectif) VALUES('"+studioDev.getNom()+"','"+studioDev.getSiege_social()+"','"+studioDev.getAnnee_creation()+"','"+studioDev.getEffectif()+"')";
 			System.out.println("SQL : " + sqlAjouterStudioDev);
 			requeteAjouterStudioDev.execute(sqlAjouterStudioDev);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public StudioDev rapporterStudioDev(int idStudioDev) {
-		Statement requeteStudioDev;
-		try {
-			requeteStudioDev = connection.createStatement();
-			
-			String SQL_RAPPORTER_STUDIODEV = "SELECT * FROM studiodev WHERE id =" + idStudioDev;
-			System.out.println(SQL_RAPPORTER_STUDIODEV);
-			ResultSet curseurStudioDev = requeteStudioDev.executeQuery(SQL_RAPPORTER_STUDIODEV);
-			curseurStudioDev.next();
-			int id = curseurStudioDev.getInt("id");
-			String nom = curseurStudioDev.getString("nom");
-			String siegeSocial = curseurStudioDev.getString("siegeSocial");
-			String anneeCreation = curseurStudioDev.getString("anneeCreation");
-			String effectif = curseurStudioDev.getString("effectif");
-			System.out.println("Le studio de développement " + nom + " est basé à " + siegeSocial + " depuis " + anneeCreation + " et compte " + effectif + " employés.");
-			StudioDev studioDev = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
-			studioDev.setID(id);
-			return studioDev;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	public void modifierStudioDev(StudioDev studioDev) {
@@ -122,4 +101,27 @@ public class StudioDevDAO {
 		}
 	}
 	
+	public StudioDev rapporterStudioDev(int idStudioDev) {
+		Statement requeteStudioDev;
+		try {
+			requeteStudioDev = connection.createStatement();
+			
+			String SQL_RAPPORTER_STUDIODEV = "SELECT * FROM studiodev WHERE id = " + idStudioDev;
+			System.out.println(SQL_RAPPORTER_STUDIODEV);
+			ResultSet curseurStudioDev = requeteStudioDev.executeQuery(SQL_RAPPORTER_STUDIODEV);
+			curseurStudioDev.next();
+			int id = curseurStudioDev.getInt("id");
+			String nom = curseurStudioDev.getString("nom");
+			String siegeSocial = curseurStudioDev.getString("siegesocial");
+			String anneeCreation = curseurStudioDev.getString("anneecreation");
+			String effectif = curseurStudioDev.getString("effectif");
+			System.out.println("Le studio de développement " + nom + " est basé à " + siegeSocial + " depuis " + anneeCreation + " et compte " + effectif + " employés.");
+			StudioDev studioDev = new StudioDev(nom, siegeSocial, anneeCreation, effectif);
+			studioDev.setID(id);
+			return studioDev;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
