@@ -1,4 +1,6 @@
 package vue;
+import java.util.List;
+
 import action.ControleurStudioDev;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import modele.Jeu;
 import modele.StudioDev;
 
 public class VueEditerStudioDev extends Scene {
@@ -19,6 +22,8 @@ public class VueEditerStudioDev extends Scene {
 	
 	private ControleurStudioDev controleur = null;
 	protected Button actionEnregistrerStudioDev = null;
+	protected GridPane grilleListeJeux = new GridPane();
+	protected Button actionAjouterJeu = null;
 	
 	private int idStudioDev = 0;
 	
@@ -26,15 +31,26 @@ public class VueEditerStudioDev extends Scene {
 		super(new VBox(), 600, 400);
 		VBox panneau = (VBox) this.getRoot();
 		GridPane grilleStudioDev = new GridPane();
-		this.actionEnregistrerStudioDev = new Button("Enregistrer");
+		this.actionAjouterJeu = new Button("Ajouter un jeu");
 		
-		this.actionEnregistrerStudioDev.setOnAction(new EventHandler<ActionEvent>() {
+		this.actionAjouterJeu.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				controleur.notifierEnregistrerStudioDev();	
+				//TODO naviguer vers vue ajouter jeu
 			
 			}});
+		
+			this.actionEnregistrerStudioDev = new Button("Enregistrer");
+					
+					this.actionEnregistrerStudioDev.setOnAction(new EventHandler<ActionEvent>() {
+			
+						@Override
+						public void handle(ActionEvent arg0) {
+							
+							controleur.notifierEnregistrerStudioDev();
+							
+						}});
 		
 		valeurNom = new TextField();
 		grilleStudioDev.add(new Label("Nom : "), 0, 0);
@@ -55,6 +71,8 @@ public class VueEditerStudioDev extends Scene {
 		panneau.getChildren().add(new Label("Editer un studio de développement"));
 		panneau.getChildren().add(grilleStudioDev);
 		panneau.getChildren().add(this.actionEnregistrerStudioDev);
+		panneau.getChildren().add(grilleListeJeux);
+		panneau.getChildren().add(this.actionAjouterJeu);
 	}
 	
 	public StudioDev demanderStudioDev() {
@@ -62,7 +80,7 @@ public class VueEditerStudioDev extends Scene {
 				this.valeurSiegeSocial.getText(),
 				this.valeurAnneeCreation.getText(),
 				this.valeurEffectif.getText());
-		//studio.setID(idStudioDev);
+		studio.setID(idStudioDev);
 		return studio;
 	}
 	
@@ -76,5 +94,18 @@ public class VueEditerStudioDev extends Scene {
 		this.valeurSiegeSocial.setText(studio.getSiege_social());
 		this.valeurAnneeCreation.setText(studio.getAnnee_creation());
 		this.valeurEffectif.setText(studio.getEffectif());
+	}
+	
+	public void afficherListeJeux(List<Jeu> listeJeux)
+	{
+		int item = 0;
+		for(Jeu jeu : listeJeux)
+		{
+			this.grilleListeJeux.add(new Label(jeu.getAnnee() + ""), 0, item);
+			this.grilleListeJeux.add(new Label(jeu.getTitre()), 1, item);
+			this.grilleListeJeux.add(new Button("Éditer"), 2, item);
+			this.grilleListeJeux.add(new Button("Effacer"), 3, item);
+			item++;
+		}		
 	}
 }

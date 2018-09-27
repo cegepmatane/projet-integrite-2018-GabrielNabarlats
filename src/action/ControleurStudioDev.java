@@ -2,28 +2,36 @@ package action;
 
 import java.util.List;
 
+import donnee.JeuDAO;
 import donnee.StudioDevDAO;
+import modele.Jeu;
 import modele.StudioDev;
 import vue.NavigateurDesVues;
 import vue.VueStudioDev;
 import vue.VueAjouterStudioDev;
 import vue.VueEditerStudioDev;
 import vue.VueListeStudioDev;
+import vue.VueListeJeu;
 
 
 public class ControleurStudioDev {
 	
-	private VueStudioDev vueStudioDev = null;
+	private NavigateurDesVues navigateur;
+	
 	private VueListeStudioDev vueListeStudioDev = null;
+	private VueStudioDev vueStudioDev = null;
 	private VueAjouterStudioDev vueAjouterStudioDev = null;
 	private VueEditerStudioDev vueEditerStudioDev = null;
 	
-	private NavigateurDesVues navigateur = null;
-	StudioDevDAO StudioDevDAO = null;
+	private VueListeJeu vueListeJeu = null;
+	
+	private StudioDevDAO studioDevDAO = null;
+	private JeuDAO jeuDAO = null;
 	
 	private ControleurStudioDev() {
 		System.out.println("Initialisation du controleur");	
-		this.StudioDevDAO = new StudioDevDAO();
+		this.studioDevDAO = new StudioDevDAO();
+		jeuDAO = new JeuDAO();
 	}
 	
 	public void activerVues(NavigateurDesVues navigateur) {
@@ -33,6 +41,8 @@ public class ControleurStudioDev {
 		this.vueListeStudioDev = this.navigateur.getVueListeStudioDev();
 		this.vueAjouterStudioDev = this.navigateur.getVueAjouterStudioDev();
 		this.vueEditerStudioDev = this.navigateur.getVueEditerStudioDev();
+		
+		this.vueListeJeu = this.navigateur.getVueListeJeu();
 
 		/// TEST ///
 		StudioDev studiodev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
@@ -43,7 +53,7 @@ public class ControleurStudioDev {
 		this.navigateur.naviguerVersVueStudioDev();
 		
 		/// TEST ///
-		List<StudioDev> listeStudioDevTest = StudioDevDAO.listerStudioDev();
+		List<StudioDev> listeStudioDevTest = studioDevDAO.listerStudioDev();
 		this.vueListeStudioDev.afficherListeStudioDev(listeStudioDevTest); // Appel de ma fonction avant de la programmer (pour tester à mesure)
 		
 		this.navigateur.naviguerVersVueListeStudioDev();
@@ -60,10 +70,10 @@ public class ControleurStudioDev {
 		// SINGLETON FINI
 		public void notifierEnregistrerNouveauStudioDev()
 		{
-			System.out.println("ControleurAnime.notifierEnregistrerNouvelAnime()");
+			System.out.println("ControleurStudioDev.notifierEnregistrerNouveauStudioDev()");
 			StudioDev studio = this.navigateur.getVueAjouterStudioDev().demanderStudioDev();
-			this.StudioDevDAO.ajouterStudioDev(studio);
-			this.vueListeStudioDev.afficherListeStudioDev(this.StudioDevDAO.listerStudioDev()); // TODO optimiser
+			this.studioDevDAO.ajouterStudioDev(studio);
+			this.vueListeStudioDev.afficherListeStudioDev(this.studioDevDAO.listerStudioDev()); // TODO optimiser
 			this.navigateur.naviguerVersVueListeStudioDev();
 		}
 		
@@ -71,8 +81,8 @@ public class ControleurStudioDev {
 		{
 			System.out.println("ControleurStudioDev.notifierEnregistrerStudioDev()");
 			StudioDev studioDev = this.navigateur.getVueEditerStudioDev().demanderStudioDev();
-			this.StudioDevDAO.modifierStudioDev(studioDev);
-			this.vueListeStudioDev.afficherListeStudioDev(this.StudioDevDAO.listerStudioDev());
+			this.studioDevDAO.modifierStudioDev(studioDev);
+			this.vueListeStudioDev.afficherListeStudioDev(this.studioDevDAO.listerStudioDev());
 			this.navigateur.naviguerVersVueListeStudioDev();
 		}
 		
@@ -83,8 +93,17 @@ public class ControleurStudioDev {
 		
 		public void notifierNaviguerEditerStudioDev(int idStudioDev) {
 			System.out.println("ControleurStudioDev.notifierEditerStudioDev("+idStudioDev+")");
-			this.vueEditerStudioDev.afficherStudioDev(this.StudioDevDAO.rapporterStudioDev(idStudioDev));
+			this.vueEditerStudioDev.afficherStudioDev(this.studioDevDAO.rapporterStudioDev(idStudioDev));
+			this.vueEditerStudioDev.afficherListeJeux(this.jeuDAO.listerJeuxParStudioDev(idStudioDev));
 			this.navigateur.naviguerVersVueEditerStudioDev();
+		}
+		
+		public void notifierEnregistrerNouveauJeu(int idstudio) {
+			System.out.println("ControleurStudioDev.notifierEnregistrerNouveauJeu()");
+			Jeu jeu = this.navigateur.getVueAjouterJeu().demanderJeu();
+			this.jeuDAO.ajouterJeu(jeu);
+			this.vueListeJeu.afficherListeJeux(this.jeuDAO.listerJeuxParStudioDev(idstudio));
+			this.navigateur.naviguerVersVueListeJeux();
 		}
 
 }

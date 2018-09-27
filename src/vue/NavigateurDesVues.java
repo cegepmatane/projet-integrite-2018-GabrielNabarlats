@@ -12,7 +12,10 @@ public class NavigateurDesVues extends Application{
 	private VueAjouterStudioDev vueAjouterStudioDev = null;
 	private VueListeStudioDev vueListeStudioDev = null;
 	private VueStudioDev vueStudioDev = null;
-	public VueEditerStudioDev vueEditerStudioDev = null;
+	private VueEditerStudioDev vueEditerStudioDev = null;
+	
+	private VueAjouterJeu vueAjouterJeu = null;
+	private VueListeJeu vueListeJeu = null;
 	
 	private ControleurStudioDev controleur = null;
 	
@@ -22,7 +25,8 @@ public class NavigateurDesVues extends Application{
 		this.vueListeStudioDev = new VueListeStudioDev();
 		this.vueStudioDev = new VueStudioDev();
 		this.vueEditerStudioDev = new VueEditerStudioDev();
-			
+		this.vueAjouterJeu = new VueAjouterJeu();
+		this.vueListeJeu = new VueListeJeu();
 	}
 	
 	
@@ -89,6 +93,19 @@ public class NavigateurDesVues extends Application{
 	
 	public VueEditerStudioDev getVueEditerStudioDev() {
 		return vueEditerStudioDev;
+	}
+	
+	public VueAjouterJeu getVueAjouterJeu() {
+		return vueAjouterJeu;
+	}
+	
+	public VueListeJeu getVueListeJeu() {
+		return vueListeJeu;
+	}
+	
+	public void naviguerVersVueListeJeux() {
+		stade.setScene(this.vueListeJeu);
+		stade.show();
 	}
 
 }

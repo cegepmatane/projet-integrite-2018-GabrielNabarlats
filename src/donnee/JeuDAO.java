@@ -52,17 +52,33 @@ public class JeuDAO implements JeuSQL {
 		return listeJeux;
 	}	
 	
+	public void ajouterJeu(Jeu jeu) {
+			
+			System.out.println("JeuDAO.ajouterJeu()");
+			try {
+				PreparedStatement requeteAjouterJeu = connection.prepareStatement(SQL_AJOUTER_JEU);
+				requeteAjouterJeu.setInt(1, jeu.getAnnee());
+				requeteAjouterJeu.setString(2, jeu.getTitre());
+				
+				System.out.println("SQL : " + SQL_AJOUTER_JEU);
+				requeteAjouterJeu.execute();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
 	public List<Jeu> simulerListerJeux()
 	{
 		List<Jeu> listeJeux = new ArrayList<Jeu>();
 		Jeu prix;
-		prix = new Jeu(2015, "StudioDev le plus récompensé");
+		prix = new Jeu(2015, "Jeu le plus récompensé");
 		listeJeux.add(prix);
-		prix = new Jeu(2016, "StudioDev le plus joué");
+		prix = new Jeu(2016, "Jeu le plus joué");
 		listeJeux.add(prix);
-		prix = new Jeu(2017, "StudioDev le plus effrayant");
+		prix = new Jeu(2017, "Jeu le plus effrayant");
 		listeJeux.add(prix);
-		prix = new Jeu(2018, "StudioDev le plus beau graphiquement");
+		prix = new Jeu(2018, "Jeu le plus beau graphiquement");
 		listeJeux.add(prix);	
 		
 		return listeJeux;
