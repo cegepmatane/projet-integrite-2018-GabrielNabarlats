@@ -1,6 +1,6 @@
 package vue;
 
-import controleur.ControleurStudioDev;
+import action.ControleurStudioDev;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
