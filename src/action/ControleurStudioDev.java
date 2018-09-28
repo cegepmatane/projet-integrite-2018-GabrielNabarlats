@@ -80,8 +80,16 @@ public class ControleurStudioDev {
 		public void notifierEnregistrerStudioDev()
 		{
 			System.out.println("ControleurStudioDev.notifierEnregistrerStudioDev()");
-			StudioDev studioDev = this.navigateur.getVueEditerStudioDev().demanderStudioDev();
-			this.studioDevDAO.modifierStudioDev(studioDev);
+			StudioDev studio = this.navigateur.getVueEditerStudioDev().demanderStudioDev();
+			this.studioDevDAO.modifierStudioDev(studio);
+			this.vueListeStudioDev.afficherListeStudioDev(this.studioDevDAO.listerStudioDev());
+			this.navigateur.naviguerVersVueListeStudioDev();
+		}
+		
+		public void notifierSupprimerStudioDev() {
+			System.out.println("ControleurStudioDev.notifierSupprimerStudioDev()");
+			StudioDev studio = this.navigateur.getVueEditerStudioDev().demanderStudioDev();
+			this.studioDevDAO.supprimerStudioDev(studio);
 			this.vueListeStudioDev.afficherListeStudioDev(this.studioDevDAO.listerStudioDev());
 			this.navigateur.naviguerVersVueListeStudioDev();
 		}

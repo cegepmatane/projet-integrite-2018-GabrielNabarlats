@@ -66,7 +66,7 @@ public class StudioDevDAO implements StudioDevSQL {
 			requeteAjouterStudioDev.setString(3, studioDev.getAnnee_creation());
 			requeteAjouterStudioDev.setString(4, studioDev.getEffectif());
 			
-			System.out.println("SQL : " + SQL_AJOUTER_STUDIODEV);
+			System.out.println("SQL : " + requeteAjouterStudioDev.toString());
 			requeteAjouterStudioDev.execute();
 			
 		} catch (SQLException e) {
@@ -84,9 +84,22 @@ public class StudioDevDAO implements StudioDevSQL {
 			requeteModifierStudioDev.setString(4, studioDev.getEffectif());
 			requeteModifierStudioDev.setInt(5, studioDev.getID());
 			
-			System.out.println("SQL : " + SQL_MODIFIER_STUDIODEV);
+			System.out.println("SQL : " + requeteModifierStudioDev.toString());
 			requeteModifierStudioDev.execute();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void supprimerStudioDev(StudioDev studioDev) {
+		System.out.println("StudioDevDAO.supprimerStudioDev()");
+		try {
+			PreparedStatement requeteSupprimerStudioDev = connexion.prepareStatement(SQL_SUPPRIMER_STUDIODEV);
+			requeteSupprimerStudioDev.setInt(1, studioDev.getID());
+			
+			System.out.println("SQL :" + requeteSupprimerStudioDev.toString());
+			requeteSupprimerStudioDev.execute();
+		} catch (SQLException e){
 			e.printStackTrace();
 		}
 	}

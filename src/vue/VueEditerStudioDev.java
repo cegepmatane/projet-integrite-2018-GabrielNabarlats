@@ -24,6 +24,7 @@ public class VueEditerStudioDev extends Scene {
 	protected Button actionEnregistrerStudioDev = null;
 	protected GridPane grilleListeJeux = new GridPane();
 	protected Button actionAjouterJeu = null;
+	protected Button actionSupprimerJeu = null;
 	
 	private int idStudioDev = 0;
 	
@@ -51,6 +52,15 @@ public class VueEditerStudioDev extends Scene {
 							controleur.notifierEnregistrerStudioDev();
 							
 						}});
+					
+		this.actionSupprimerJeu = new Button("Supprimer");
+		this.actionSupprimerJeu.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				controleur.notifierSupprimerStudioDev();
+			}
+		});
 		
 		valeurNom = new TextField();
 		grilleStudioDev.add(new Label("Nom : "), 0, 0);
@@ -72,6 +82,7 @@ public class VueEditerStudioDev extends Scene {
 		panneau.getChildren().add(grilleStudioDev);
 		panneau.getChildren().add(this.actionEnregistrerStudioDev);
 		panneau.getChildren().add(grilleListeJeux);
+		panneau.getChildren().add(actionSupprimerJeu);
 		panneau.getChildren().add(this.actionAjouterJeu);
 	}
 	
