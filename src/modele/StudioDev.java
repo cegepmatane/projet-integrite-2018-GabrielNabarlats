@@ -1,5 +1,7 @@
 package modele;
 
+import java.util.ArrayList;
+
 public class StudioDev {
 
 	protected int id;
@@ -7,6 +9,7 @@ public class StudioDev {
 	public String siege_social;
 	public String annee_creation;
 	public String effectif;
+	public ArrayList<Jeu> jeux;
 	
 	public StudioDev(String nom) {
 		super();
@@ -65,6 +68,10 @@ public class StudioDev {
 	
 	public void setID(int id) {
 		this.id = id;
+	}
+	
+	public ArrayList<Jeu> getJeux(){
+		return jeux;
 	}
 	
 }

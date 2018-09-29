@@ -34,12 +34,12 @@ public class VueAjouterJeu extends Scene{
 				
 			}});
 
-		valeurTitre = new TextField();
-		grilleJeu.add(new Label("Nom : "), 0, 0);
+		valeurTitre = new TextField("");
+		grilleJeu.add(new Label("Annee de sortie : "), 0, 0);
 		grilleJeu.add(valeurTitre, 1, 0);
 		
-		valeurAnnee = new TextField("");
-		grilleJeu.add(new Label("Siege social : "), 0, 1);
+		valeurAnnee = new TextField();
+		grilleJeu.add(new Label("Titre : "), 0, 1);
 		grilleJeu.add(valeurAnnee, 1, 1);			
 			
 		panneau.getChildren().add(new Label("Ajouter un jeu"));
@@ -49,8 +49,8 @@ public class VueAjouterJeu extends Scene{
 	
 	public Jeu demanderJeu()
 	{
-		Jeu jeu = new Jeu(Integer.parseInt(this.valeurAnnee.getText()), 
-								this.valeurTitre.getText());
+		System.out.println(valeurAnnee.toString());
+		Jeu jeu = new Jeu(Integer.parseInt(this.valeurAnnee.getText()), this.valeurTitre.getText());
 		return jeu;
 	}
 	

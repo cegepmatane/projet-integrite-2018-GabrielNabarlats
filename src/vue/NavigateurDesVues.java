@@ -15,7 +15,6 @@ public class NavigateurDesVues extends Application{
 	private VueEditerStudioDev vueEditerStudioDev = null;
 	
 	private VueAjouterJeu vueAjouterJeu = null;
-	private VueListeJeu vueListeJeu = null;
 	
 	private ControleurStudioDev controleur = null;
 	
@@ -26,7 +25,6 @@ public class NavigateurDesVues extends Application{
 		this.vueStudioDev = new VueStudioDev();
 		this.vueEditerStudioDev = new VueEditerStudioDev();
 		this.vueAjouterJeu = new VueAjouterJeu();
-		this.vueListeJeu = new VueListeJeu();
 	}
 	
 	
@@ -97,15 +95,6 @@ public class NavigateurDesVues extends Application{
 	
 	public VueAjouterJeu getVueAjouterJeu() {
 		return vueAjouterJeu;
-	}
-	
-	public VueListeJeu getVueListeJeu() {
-		return vueListeJeu;
-	}
-	
-	public void naviguerVersVueListeJeux() {
-		stade.setScene(this.vueListeJeu);
-		stade.show();
 	}
 
 }

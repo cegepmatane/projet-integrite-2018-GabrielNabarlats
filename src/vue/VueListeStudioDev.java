@@ -36,6 +36,7 @@ public class VueListeStudioDev extends Scene {
 		this.grilleStudioDevs.add(new Label("Siege Social"), 1, numero);
 		this.grilleStudioDevs.add(new Label("Annee Creation"), 2,  numero);
 		this.grilleStudioDevs.add(new Label("Effectif"), 3,  numero);
+		this.grilleStudioDevs.add(new Label("Jeux"), 4, numero);
 		for(StudioDev studioDev : listeStudioDevs)
 		{
 			Button actionEditerStudioDev = new Button("Editer");
@@ -52,6 +53,7 @@ public class VueListeStudioDev extends Scene {
 			this.grilleStudioDevs.add(new Label(studioDev.getSiege_social()), 1, numero);
 			this.grilleStudioDevs.add(new Label(studioDev.getAnnee_creation()), 2, numero);
 			this.grilleStudioDevs.add(new Label(studioDev.getEffectif()), 3, numero);
+			//this.grilleStudioDevs.add(new Label(studioDev.getJeux()), 4, numero);
 			this.grilleStudioDevs.add(actionEditerStudioDev, 4, numero);
 		}
 		

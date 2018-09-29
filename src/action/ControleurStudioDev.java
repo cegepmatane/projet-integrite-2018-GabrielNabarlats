@@ -11,7 +11,6 @@ import vue.VueStudioDev;
 import vue.VueAjouterStudioDev;
 import vue.VueEditerStudioDev;
 import vue.VueListeStudioDev;
-import vue.VueListeJeu;
 
 
 public class ControleurStudioDev {
@@ -22,8 +21,6 @@ public class ControleurStudioDev {
 	private VueStudioDev vueStudioDev = null;
 	private VueAjouterStudioDev vueAjouterStudioDev = null;
 	private VueEditerStudioDev vueEditerStudioDev = null;
-	
-	private VueListeJeu vueListeJeu = null;
 	
 	private StudioDevDAO studioDevDAO = null;
 	private JeuDAO jeuDAO = null;
@@ -41,8 +38,6 @@ public class ControleurStudioDev {
 		this.vueListeStudioDev = this.navigateur.getVueListeStudioDev();
 		this.vueAjouterStudioDev = this.navigateur.getVueAjouterStudioDev();
 		this.vueEditerStudioDev = this.navigateur.getVueEditerStudioDev();
-		
-		this.vueListeJeu = this.navigateur.getVueListeJeu();
 
 		/// TEST ///
 		StudioDev studiodev = new StudioDev("Naughty Dog", "Santa Monica", "1984", "200+");
@@ -106,12 +101,12 @@ public class ControleurStudioDev {
 			this.navigateur.naviguerVersVueEditerStudioDev();
 		}
 		
-		public void notifierEnregistrerNouveauJeu(int idstudio) {
+		public void notifierEnregistrerNouveauJeu() {
 			System.out.println("ControleurStudioDev.notifierEnregistrerNouveauJeu()");
 			Jeu jeu = this.navigateur.getVueAjouterJeu().demanderJeu();
 			this.jeuDAO.ajouterJeu(jeu);
-			this.vueListeJeu.afficherListeJeux(this.jeuDAO.listerJeuxParStudioDev(idstudio));
-			this.navigateur.naviguerVersVueListeJeux();
+			this.vueListeStudioDev.afficherListeStudioDev(this.studioDevDAO.listerStudioDev());
+			this.navigateur.naviguerVersVueListeStudioDev();
 		}
 
 }

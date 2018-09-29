@@ -38,21 +38,21 @@ public class VueEditerStudioDev extends Scene {
 			
 			@Override
 			public void handle(ActionEvent arg0) {
-				//TODO naviguer vers vue ajouter jeu
+				controleur.notifierEnregistrerNouveauJeu();
 			
 			}});
 		
-			this.actionEnregistrerStudioDev = new Button("Enregistrer");
-					
-					this.actionEnregistrerStudioDev.setOnAction(new EventHandler<ActionEvent>() {
-			
-						@Override
-						public void handle(ActionEvent arg0) {
-							
-							controleur.notifierEnregistrerStudioDev();
-							
-						}});
-					
+		this.actionEnregistrerStudioDev = new Button("Enregistrer");
+				
+		this.actionEnregistrerStudioDev.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				controleur.notifierEnregistrerStudioDev();
+				
+			}});
+				
 		this.actionSupprimerJeu = new Button("Supprimer");
 		this.actionSupprimerJeu.setOnAction(new EventHandler<ActionEvent>() {
 			
